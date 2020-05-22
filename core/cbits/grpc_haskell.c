@@ -9,6 +9,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <grpc_haskell.h>
+#include <grpc/grpc_security_constants.h>
+
 
 void grpc_haskell_free(char *debugMsg, void *ptr){
   #ifdef GRPC_HASKELL_DEBUG
@@ -505,7 +507,7 @@ grpc_auth_metadata_processor* mk_auth_metadata_processor(
 grpc_call_credentials* grpc_metadata_credentials_create_from_plugin_(
   grpc_metadata_credentials_plugin* plugin){
 
-  return grpc_metadata_credentials_create_from_plugin(*plugin, NULL);
+  return grpc_metadata_credentials_create_from_plugin(*plugin, GRPC_PRIVACY_AND_INTEGRITY, NULL);
 }
 
 //This is a hack to work around GHC being unable to deal with raw struct params.
